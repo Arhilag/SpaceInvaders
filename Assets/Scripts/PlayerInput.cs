@@ -6,6 +6,9 @@ using Zenject;
 
 public class PlayerInput : MonoBehaviour
 {
+    private float hor;
+    private float ver;
+    
     private Action<Vector2> _onChangePosition;
     private Action _onShoot;
 
@@ -16,41 +19,43 @@ public class PlayerInput : MonoBehaviour
         _onShoot += model.Shoot;
     }
     
-    // private void Update()
-    // {
-    //     var hor = Input.GetAxis("Horizontal");
-    //     var ver = Input.GetAxis("Vertical");
-    //     
-    //     if (hor is > 0.1f or < -0.1f ||
-    //         ver is > 0.1f or < -0.1f)
-    //     {
-    //         _onChangePosition.Invoke(new Vector2(hor, ver));
-    //     }
-    //
-    //     if (Input.GetMouseButtonDown(0))
-    //     {
-    //         Shoot();
-    //     }
-    // }
+    private void Update()
+    {
+        if (hor is > 0.1f or < -0.1f ||
+            ver is > 0.1f or < -0.1f)
+        {
+            _onChangePosition.Invoke(new Vector2(hor, ver));
+        }
+    }
 
     public void Right()
     {
-        _onChangePosition.Invoke(new Vector2(1, 0));
+        hor = 1;
     }
 
     public void Left()
     {
-        _onChangePosition.Invoke(new Vector2(-1, 0));
+        hor = -1;
     }
 
     public void Up()
     {
-        _onChangePosition.Invoke(new Vector2(0, 1));
+        ver = 1;
     }
 
     public void Down()
     {
-        _onChangePosition.Invoke(new Vector2(0, -1));
+        ver = -1;
+    }
+
+    public void UpHor()
+    {
+        hor = 0;
+    }
+
+    public void UpVer()
+    {
+        ver = 0;
     }
 
     public void Shoot()
